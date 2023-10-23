@@ -1,4 +1,5 @@
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
+load("@com_github_masmovil_bazel_rules//repositories:age_repositories.bzl", "age_repositories")
 load("@com_github_masmovil_bazel_rules//repositories:helm_repositories.bzl", "helm_repositories")
 load("@com_github_masmovil_bazel_rules//repositories:yq_repositories.bzl", "yq_repositories")
 load("@com_github_masmovil_bazel_rules//repositories:kubectl_repositories.bzl", "kubectl_repositories")
@@ -13,6 +14,7 @@ def repositories():
   """Download dependencies of container rules."""
   excludes = native.existing_rules().keys()
 
+  age_repositories()
   kubectl_repositories()
   helm_repositories()
   yq_repositories()
@@ -40,5 +42,7 @@ def repositories():
     "@com_github_masmovil_bazel_rules//toolchains/sops:sops_osx_arm64_toolchain",
     "@com_github_masmovil_bazel_rules//toolchains/sops:sops_windows_toolchain",
     "@com_github_masmovil_bazel_rules//toolchains/gpg:gpg_osx_toolchain",
-    "@com_github_masmovil_bazel_rules//toolchains/gpg:gpg_linux_toolchain"
+    "@com_github_masmovil_bazel_rules//toolchains/gpg:gpg_linux_toolchain",
+    "@com_github_masmovil_bazel_rules//toolchains/age:age_osx_amd64_toolchain",
+    "@com_github_masmovil_bazel_rules//toolchains/age:age_linux_amd64_toolchain",
   )
